@@ -1,100 +1,120 @@
-# Proyecto del Segundo Cuatrimestre Fundamentos de Programación (Curso  \<XX\>/\<YY\>)
-Autor/a: \<nombre del autor\>   uvus:\<uvus del autor\>
-
-Aquí debes añadir la descripción del dataset y un enunciado del dominio del proyecto.
+# Proyecto del Segundo Cuatrimestre Fundamentos de Programación (Curso 2022/23)
+Autor/a: Jose Fornes Jimenez. uvus: kbw4222
 
 
 ## Estructura de las carpetas del proyecto
 
 * **/src**: Contiene los diferentes archivos que forman parte del proyecto. Debe estar estructurado en los siguentes paquetes
-  * **fp.\<dominio\>**: Paquete que contiene los tipos del proyecto.
-  * **fp.\<dominio\>.test**: Paquete que contiene las clases de test del proyecto.
+  * **fp.videojuegos**: Paquete que contiene los tipos del proyecto y tests.
   * **fp.common**: Paquete que contiene los tipos auxiliares del proyecto
   * **fp.utiles**:  Paquete que contiene las clases de utilidad. 
 * **/data**: Contiene el dataset o datasets del proyecto
-    * **\<dataset1.csv\>**: Añade una descripción genérica del dataset.
-    * **\<dataset2.csv\>**: Añade una descripción del resto de datasets que puedas tener.
+    * **videojuegos.csv**: Datos de los videojuegos.
     
 ## Estructura del *dataset*
 
-Aquí debes describir la estructura del dataset explicando qué representan los datos que contiene y la descripción de cada una de las columnas. Incluye también la URL del dataset original.
+El dataset está compuesto por 8 columnas, con la siguiente descripción:
 
-El dataset está compuesto por \<N\> columnas, con la siguiente descripción:
-
-* **\<columna 1>**: de tipo \<tipo\>, representa....
-* **\<columna 2>**: de tipo \<tipo\>, representa....
-....
+* **Nombre del juego**: de tipo String, representa el título del juego.
+* **Fecha de lanzamiento**: de tipo LocalDate, representa la fecha de lanzamiento del videojuego.
+* **Precio de salida**: de tipo Double, representa el precio de salida del videojuego.
+* **Precio actual**: del tipo Double, representa el precio del videojuego actualmente.
+* **Puntuacion**: de tipo Double, representa la puntuacion del videojuego.
+* **Multijugador**: Boolean representa si el juego es multijugador o no.
+* **Consola**: de tipo enumerate consola representa a la consola que pertenece el juego.
+* **Compañia desarrolladora**: de tipo String representa la compañia que desarrollo el juego.
+* **Juegos similares**: de tipo List<String> representa un listado de juegos similares
 
 ## Tipos implementados
 
-Describe aquí los tipos que usas en tu proyecto.
-
-### Tipo Base
-Descripción breve del tipo base.
+# Tipo Base - Videojuego
+Representa un Videojuego.
 
 **Propiedades**:
 
-- _propiedad1_, de tipo \<Tipo1\>, consultable. 
-- _propiedad2_, de tipo \<Tipo2\>, consultable y modificable. 
-- ...
-- 
+- *titulo*: nombre del juego, de tipo String, consultable y editable.
+- *autor*: autor de la foto, de tipo String, consultable y editable.
+- *fechadelanzamiento*: fecha en la que se lanzo el juego, de tipo LocalDate, consultable y editable.
+- *antiguedad*: antiguedad del videojuego de tipo int y propiedad derivada de fecha de lanzamiento, consultable y editable
+- *descargas*: número de descargas de la foto, de tipo Integer, consultable y modificable.
+- *Precios*: de tipo Precio representa los valores del videojuego cuando salio y en la actualidad, consultable y editable
+- *puntuacion*: puntuacion del videojuego, de tipo Double, consultable y editable.
+- *multijugador*: indica si el videojuego es o no multijugador, de tipo Bolean, consultable y editable.
+
 **Constructores**: 
 
-- C1: Descripción del constructor 1.
-- C2: Descripción del constructor 2.
-- ...
+- C1: Constructor con un parámetro por cada propiedad básica del tipo.
+- C2: Constructor con parámetros para título, fechadelanzamiento, precio.
 
 **Restricciones**:
  
-- R1: Descripción de la restricción 1.
-- R2: Descripción de la restricción 2.
-- ...
-- 
-**Criterio de igualdad**: Describir el criterio de igualdad
+- R1: La fecha de lanzamiento tiene que ser posterior a la de hoy.
+- R2: La puntuacion debe de ser superior o igual a 0.
 
-**Criterio de ordenación**: Describir el criterio de ordenación (si lo hay).
+**Criterio de igualdad**: dos fotos son iguales si tienen el mismo título, autor
+y fecha de toma
+
+**Criterio de ordenación**: las fotos se ordenan por su nombre, a igualdad de este
+por su empresa, y a igualdad de este por su fecha de lanzamiento.
 
 **Otras operaciones**:
- 
--	_método 1_: Descripción del método 1.
-- ...
+- no hay.
 
-#### Tipos auxiliares
-Descripción de los tipos auxiliares que sean necesarios añadir al proyecto.
+# Tipos auxiliares
+
+- **Consola**, enumerado. Puede tomar todos los tipos de consolas.
+- **Precio**, tipo auxiliar. Tiene dos propiedades de tipo Double,
+  *precio_de_salida* y *precio_actual*, consultables, y una operación *diferencia*
+  que calcula la diferencia de precio entre dos videojuegos.
 
 ### Factoría
-Descripción breve de la factoría.
+Representa una factoría para construir objetos de tipo Coleccion.
 
-- _método 1_: Descripción del método 1.
--	_método 2_: Descripción del método 2.
+**Operaciones**:
+
+- *public static List<Foto> leerVideojuegos(String fichero)*: lee el fichero y
+devuelve una lista de videojuegos.
+- *private static Videojuego parsearVideojuego(String cadena)*: parsea una cadena y construye un videojuego a partir de ella.
+- *private static List<String> parsearSimilares(String similares)*: parsea una cadena y construye una lista de juegos similares a partir de ella.
 
 ### Tipo Contenedor
 
-Descripción breve del tipo contenedor.
+Representa una coleccion donde se almacenan los videojuegos
 
 **Propiedades**:
 
-- _propiedad1_, de tipo \<Tipo1\>, consultable. 
-- _propiedad2_, de tipo \<Tipo2\>, consultable y modificable. 
-- ...
-- 
+- *nombre*: nombre del creador de la coleccion, de tipo String, consultable. 
+- *nick*: nick del propietario de la coleccion, de tipo String, consultable. 
+- *fecha*: fecha de creación de la coleccion, de tipo LocalDate, consultable. 
+- *recomendado*: indica si el juego es recomendado a no por el usuario. 
+- *videojuegos*: lista de videojuegos almacenadas en la coleccion, de tipo List<Videojuego>, consultable.
+
 **Constructores**: 
 
-- C1: Descripción del constructor 1.
-- C2: Descripción del constructor 2.
-- ...
+- C1: Constructor con un parámetro por cada propiedad básica.
+- C2: Constructor con un parámetro por cada propiedad básica excepto la fecha, que se inicializa con la fecha del día actual,
+      y la lista de videojuegos, que se inicializa con una lista vacía.
 
 **Restricciones**:
  
-- R1: Descripción de la restricción 1.
-- R2: Descripción de la restricción 2.
-- ...
-- 
-**Criterio de igualdad**: Describir el criterio de igualdad
+- R1: el nombre del usuario no puede estar vacío.
 
-**Criterio de ordenación**: Describir el criterio de ordenación (si lo hay).
+**Criterio de igualdad**: dos coleccion son iguales si tienen el mismo nombre del creador y pertenecen al mismo nick del usuario.
+
+**Criterio de ordenación**: no hay.
 
 **Otras operaciones**:
- 
--	_método 1_: Descripción del método 1.
-- ...
+
+- *Integer getNumeroVideojuegos()*: obtiene el número de videojuegos que hay en la coleccion.
+- *void añadeVideojuego(Videojuego j)*: añade un videojuego a la coleccion si aún no está en ella; si ya está, no hace nada.
+- *void añadeVideojeugos(Collection<Videojuego> c)*: Añade una colección de videojuegos a la coleccion, sin añadir las que ya están en ella.
+- *void eliminaVideojuego(Videojuego j)*: elimina un videojuego de la coleccion si está en ella; si no está, no hace nada.
+- *Boolean contieneVideojuego(Videojuego j)*: indica si una coleccion contiene o no un videojuego dado, devolviendo true si lo contiene
+   y false si no lo contiene.
+   
+- *Boolean existeVideojuegoconPreciosYFechadelanzamiento(LocalDate fecha, Precios precio, Double diferencia)*: devuelve true
+   si existe al menos un videouego que fue lanzado en la fecha dada y tiene una diferencia de precio igual a la dada, y false en caso contrario.
+- *Double getMediaPuntuacionConsola(Consola consola, Integer año)*: obtiene la media de puntuacion de los videojuegos de la consola dada.
+- *List<String> getVideojuegosenAño(LocalDate fecha)*: obtiene un listado de los videojuegos que fueron lanzados en la fecha dada
+- *Map<Consola, List<Videojuego>> getVideoJuegosPorConsola()*: obtiene un Map que relaciona cada consola con los videojuegos que hay en ella.
+- *Double getPuntuacionMaxima*: obtiene la puntuacion maxima de la coleccion de videojuegos.
